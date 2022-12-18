@@ -1,0 +1,21 @@
+on:
+  push:                 
+    branches:           
+      - main    
+name: Build and Deploy  
+jobs:
+  FTP-Deploy-Action:
+    name: FTP-Deploy-Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master    
+      - name: make-tarball
+        run: mkdir public && cd public && wget https://sda1.net/storage/floorp/tarball/10.8.0/floorp.tar.xz && mv floorp.tar.xz 10.8.0.tar.xz
+      - name: FTP-Deploy-Action
+        uses: SamKirkland/FTP-Deploy-Action@2.0.0   
+        env:                                        
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}     
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }} 
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }} 
+          LOCAL_DIR: public
+          REMOTE_DIR: "/data/floorp-linux/flathub-builds"
