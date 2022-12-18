@@ -10,11 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@master    
       - name: download-basefile
-        run: mkdir tmp && cd tmp && wget https://sda1.net/storage/floorp/basefiles.tar.xz && tar -xf basefiles.tar.xz && rm basefiles.tar.xz 
+        run: mkdir tmp public && cd tmp && wget https://sda1.net/storage/floorp/basefiles.tar.xz && tar -xf basefiles.tar.xz && rm basefiles.tar.xz 
       - name: Download-floorp-tarball
         run: wget https://github.com/Floorp-Projects/Floorp/releases/download/v10.8.0/floorp-10.8.0.en-US.linux-x86_64.tar.bz2 && tar -jxvf *.tar.bz2 && mv floorp lib/
       - name: compress
-        run : tar -Jcf floorp.tar.xz * && mv floorp.tar.xz ../public
+        run : tar -Jcf floorp.tar.xz * && mv floorp.tar.xz ../public && cd ..
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@2.0.0   
         env:                                        
