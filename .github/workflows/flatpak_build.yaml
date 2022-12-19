@@ -28,6 +28,10 @@ jobs:
           mkdir repo && git clone https://github.com/flathub/one.ablaze.floorp && cd one.ablaze.floorp && git checkout devel
           cat  one.ablaze.floorp.appdata.xml  | sed -e '21i\        <release version="10.8.0" date="2022-12-18"/>' > one.ablaze.floorp.appdata.xml
           cat one.ablaze.floorp.yml | sed '/^\        sha256:/c\\        sha256: test' > one.ablaze.floorp.yml
-          gh push
+          git config --local user.email "nexryai@outlook.com"
+          git config --local user.name "nexryai"
+          git add .
+          git commit -m "Update flathub package" -a
+          git push
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
