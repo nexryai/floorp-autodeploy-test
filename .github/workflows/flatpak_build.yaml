@@ -25,7 +25,7 @@ jobs:
           REMOTE_DIR: "/data/floorp-linux/flathub-builds"
       - name: Create PR to Flathub repo
         run: |
-          mkdir repo && gh repo clone https://github.com/flathub/one.ablaze.floorp --branch devel
+          mkdir repo && git clone https://github.com/flathub/one.ablaze.floorp && checkout devel
           cat  one.ablaze.floorp.appdata.xml  | sed -e '21i\        <release version="10.8.0" date="2022-12-18"/>' > one.ablaze.floorp.appdata.xml
           cat one.ablaze.floorp.yml | sed '/^\        sha256:/c\\        sha256: test' > one.ablaze.floorp.yml
           gh push
